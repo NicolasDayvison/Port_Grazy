@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grazielly Batista - UGC Creator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- DEFINIÇÃO DAS VARIÁVEIS DE COR PARA OS TEMAS --- */
+        :root, body[data-theme='light'] {
+            --bg-color-1: #fde2e4;
+            --bg-color-2: #e2d6e9;
+            --bg-color-3: #d1c1d8;
+            --text-main: #4A4A4A;
+            --text-dark: #5E548E;
+            --text-accent: #9F86C0;
+            --primary: #E8A0BF;
+            --secondary: #BA95C3;
+            --card-bg: #FFFFFF;
+            --card-bg-transparent: rgb(255 255 255 / 0.7);
+            --card-text: #4A4A4A;
+            --btn-secondary-bg: #FFFFFF;
+            --btn-secondary-text: #5E548E;
+            --menu-bg: rgb(255 255 255 / 0.8);
+            --border-color: #E5E7EB;
+            --tab-active-bg: var(--primary);
+            --tab-inactive-bg: transparent;
+            --tab-active-text: #FFFFFF;
+            --tab-inactive-text: var(--text-main);
+            --image-brightness: 100%;
+        }
+
+        body[data-theme='dark'] {
+            /* CORES DO TEMA ESCURO ATUALIZADAS PARA TONS DE CASTANHO */
+            --bg-color-1: #4a423b;
+            --bg-color-2: #3b3734;
+            --bg-color-3: #2a2725;
+            --text-main: #E0D8D3;
+            --text-dark: #FFFFFF;
+            --text-accent: #BFA89E;
+            --primary: #8C6D5D;
+            --secondary: #6B5B4D;
+            --card-bg: #3A322F;
+            --card-bg-transparent: rgb(58 50 47 / 0.7);
+            --card-text: #E0D8D3;
+            --btn-secondary-bg: #3A322F;
+            --btn-secondary-text: #FFFFFF;
+            --menu-bg: rgb(42 39 37 / 0.8);
+            --border-color: #4A4A4A;
+            --tab-active-bg: var(--primary);
+            --tab-inactive-bg: transparent;
+            --tab-active-text: #FFFFFF;
+            --tab-inactive-text: var(--text-main);
+            --image-brightness: 85%;
+        }
+        /* --- FIM DAS VARIÁVEIS DE COR --- */
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        
+        body, h1, h2, h3, p, a, i, footer, section, button, div, img {
+            transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, filter 0.5s ease;
+        }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ANIMAÇÕES DAS FORMAS NO CABEÇALHO (CORRIGIDO) */
+        @keyframes blob-1 {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(20px) translateY(-30px); }
+        }
+
+        @keyframes blob-2 {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-20px) translateY(30px); }
+        }
+
+        /* Gradiente animado de fundo para todo o body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
+            background-size: 400% 400%;
+            animation: animated-gradient 20s linear infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+        .gradient-btn {
+            background-image: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: all 0.4s ease;
+            background-size: 200% auto;
+        }
+        .gradient-btn:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out, color 0.5s ease, background-color 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #side-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out, background-color 0.5s ease;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+        #menu-overlay {
+            transition: opacity 0.3s ease;
+        }
+        #menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #menu-icon {
+            transition: transform 0.3s ease-in-out, color 0.5s ease;
+        }
+        #menu-btn {
+            transition: transform 0.2s ease, background-color 0.5s ease;
+        }
+        #menu-btn.open #menu-icon {
+            transform: rotate(180deg);
+        }
+        .profile-image-shadow {
+             filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.25));
+        }
+        .themed-image {
+            filter: brightness(var(--image-brightness));
+        }
+        .portfolio-tab {
+            background-color: var(--tab-inactive-bg);
+            color: var(--tab-inactive-text);
+            transition: all 0.3s ease;
+        }
+        .portfolio-tab.active {
+            background-color: var(--tab-active-bg);
+            color: var(--tab-active-text);
+            box-shadow: 0 4px 10px -2px rgba(0,0,0,0.1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- Controles do Topo (Menu e Tema) -->
+    <div class="fixed top-6 left-6 z-[60] flex items-center gap-3">
+        <button id="menu-btn" class="h-12 w-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background-color: var(--menu-bg); backdrop-filter: blur(4px); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i id="menu-icon" class="fas fa-bars text-xl" style="color: var(--text-dark);"></i>
+        </button>
+        <button id="theme-toggle-btn" class="h-12 w-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background-color: var(--menu-bg); backdrop-filter: blur(4px); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i id="theme-icon" class="fas fa-moon text-xl" style="color: var(--text-dark);"></i>
+        </button>
+    </div>
+    
+    <!-- Botão Mídia Kit -->
+    <a href="/midia-kit" class="fixed top-6 right-6 z-[60] h-12 px-6 rounded-full flex items-center justify-center transition-transform hover:scale-105 gradient-btn text-white font-semibold shadow-lg">
+        Mídia Kit
+    </a>
+
+    <!-- Overlay do Menu -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none"></div>
+
+    <!-- Painel do Menu Lateral -->
+    <div id="side-menu" class="fixed top-0 left-0 h-full w-72 z-50 shadow-2xl" style="background-color: var(--card-bg);">
+        <div class="p-6 flex flex-col h-full">
+            <a href="#" class="menu-link text-2xl font-bold mb-6 text-center" style="color: var(--text-dark);">Grazy Batista</a>
+            <nav class="mt-6 flex-grow">
+                <a href="#portfolio" class="menu-link block text-lg py-4 px-4 rounded-lg" style="color: var(--text-main);"><i class="fas fa-camera-retro w-6 mr-2"></i>Portfólio</a>
+                <a href="#nichos" class="menu-link block text-lg py-4 px-4 rounded-lg" style="color: var(--text-main);"><i class="fas fa-star w-6 mr-2"></i>Nichos</a>
+                <a href="#avaliacoes" class="menu-link block text-lg py-4 px-4 rounded-lg" style="color: var(--text-main);"><i class="fas fa-comment-dots w-6 mr-2"></i>Avaliações</a>
+                <a href="#contato" class="menu-link block text-lg py-4 px-4 rounded-lg" style="color: var(--text-main);"><i class="fas fa-paper-plane w-6 mr-2"></i>Contato</a>
+            </nav>
+            <div class="text-center text-sm" style="color: var(--text-accent);">
+                <p>&copy; <span id="year-menu"></span> Grazy Batista</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Principal -->
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Header / Seção Hero -->
+        <header id="home" class="relative min-h-screen flex items-center overflow-hidden w-full">
+            <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full h-full">
+                <!-- Coluna de Texto -->
+                <div class="text-center lg:text-left z-10 flex flex-col justify-center h-full">
+                    <h1 class="text-5xl lg:text-7xl font-bold" style="color: var(--text-dark);">Grazy Batista</h1>
+                    <p class="text-xl lg:text-2xl font-medium mt-3" style="color: var(--text-accent);">Criadora de Conteúdo UGC | Estudante de Enfermagem</p>
+                    <p class="max-w-xl mx-auto lg:mx-0 mt-6 text-base lg:text-lg leading-relaxed" style="color: var(--text-main);">Sou criadora de conteúdo com foco em maternidade, moda acessível, beleza real, lifestyle e bem-estar feminino. Produzo conteúdos autênticos e envolventes que mostram minha rotina com leveza, verdade e identificação com o público.</p>
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
+                        <a href="#contato" class="gradient-btn text-white font-bold py-3 px-10 rounded-full shadow-lg w-full sm:w-auto">Vamos conversar!</a>
+                        <a href="#portfolio" class="btn font-bold py-3 px-10 rounded-full shadow-lg w-full sm:w-auto" style="background-color: var(--btn-secondary-bg); color: var(--btn-secondary-text);">Ver Portfólio</a>
+                    </div>
+                </div>
+                <!-- Coluna da Imagem -->
+                <div class="relative flex justify-center items-center h-full w-full">
+                    <!-- Efeito de halo centralizado atrás da imagem -->
+                    <div class="absolute inset-0 flex justify-center items-center">
+                        <div class="rounded-full opacity-50"
+                             style="width: 50%; height: 50%; background: radial-gradient(circle, var(--primary) 0%, var(--secondary) 100%); filter: blur(80px);"></div>
+                    </div>
+                    <img src="/images/capa.png"
+                         alt="Foto de Grazielly Batista"
+                         class="relative z-10 w-full h-auto max-w-xl md:max-w-2xl profile-image-shadow themed-image"
+                         style="mask-image: linear-gradient(to top, transparent 0%, black 30%, black 100%); -webkit-mask-image: linear-gradient(to top, transparent 0%, black 30%, black 100%);"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x900/E8A0BF/FFFFFF?text=GB';">
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Seção: Como trabalho com UGC -->
+            <section class="reveal py-16 px-6 rounded-3xl shadow-lg my-16" style="background-color: var(--card-bg);">
+                <div class="text-center">
+                    <h2 class="text-4xl md:text-5xl font-bold leading-tight" style="color: var(--text-dark);">Como trabalho com UGC</h2>
+                    <p class="text-lg mt-6 max-w-4xl mx-auto" style="color: var(--text-main);">Atuo como criadora de conteúdo UGC (User Generated Content), desenvolvendo vídeos e fotos originais, com estética pensada para aproximar a marca do consumidor de forma real e confiável. Meu diferencial é unir <span class="font-semibold" style="color: var(--text-accent);">naturalidade, boas estratégias de roteiro, edição atual e entrega profissional</span>, criando materiais que geram conexão e conversão.</p>
+                    <p class="mt-4 max-w-4xl mx-auto leading-relaxed" style="color: var(--text-main);">Produzo conteúdo personalizado para marcas utilizarem em seus próprios canais, campanhas e anúncios.</p>
+                </div>
+            </section>
+
+            <!-- Seção: Portfólio de Vídeos com Abas -->
+            <section id="portfolio" class="reveal py-20 text-center">
+                <h2 class="text-5xl font-bold" style="color: var(--text-dark);">Meu Portfólio</h2>
+                <p class="text-lg mt-2" style="color: var(--text-accent);">Uma amostra do meu trabalho em cada nicho.</p>
+                
+                <!-- Abas de Navegação -->
+                <div class="mt-12 mb-8 flex flex-wrap justify-center gap-2 sm:gap-4 p-2 rounded-full" style="background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <button class="portfolio-tab active px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold" data-tab="moda">Moda</button>
+                    <button class="portfolio-tab px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold" data-tab="maternidade">Maternidade</button>
+                    <button class="portfolio-tab px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold" data-tab="beleza">Beleza</button>
+                    <button class="portfolio-tab px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold" data-tab="bem-estar">Bem-estar</button>
+                    <button class="portfolio-tab px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold" data-tab="lifestyle">Lifestyle</button>
+                </div>
+
+                <!-- Conteúdo das Abas -->
+                <div id="portfolio-content">
+                    <!-- Conteúdo Aba Moda -->
+                    <div class="tab-pane active" id="moda">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center">
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="/images/Imagem do WhatsApp de 2025-07-03 à(s) 20.51.00_5818dfc7.jpg"><source src="/videos/moda.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Moda 1</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="/images/Ima"><source src="/videos/moda_2.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Moda 2</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/E8A0BF/FFFFFF?text=Moda+3"><source src="/videos/moda_3.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Moda 3</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteúdo Aba Maternidade -->
+                    <div class="tab-pane hidden" id="maternidade">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center">
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/E8A0BF/FFFFFF?text=Maternidade+1"><source src="/videos/maternidade_1.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Maternidade 1</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/9F86C0/FFFFFF?text=Maternidade+2"><source src="/videos/maternidade_2.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Maternidade 2</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/BA95C3/FFFFFF?text=Maternidade+3"><source src="/videos/maternidade_3.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Maternidade 3</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteúdo Aba Beleza -->
+                    <div class="tab-pane hidden" id="beleza">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center">
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="/images/Imagem do WhatsApp de 2025-07-03 à(s) 19.36.20_89ffc9ce.jpg"><source src="/videos/beleza_1.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Beleza 1</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/E8A0BF/FFFFFF?text=Beleza+2"><source src="/videos/beleza_2.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Beleza 2</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/9F86C0/FFFFFF?text=Beleza+3"><source src="/videos/beleza_3.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Beleza 3</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteúdo Aba Bem-estar -->
+                    <div class="tab-pane hidden" id="bem-estar">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center">
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="/images/IMG-20250703-WA0035[1].jpg"><source src="/videos/bem-estar_1.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Bem-estar 1</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/BA95C3/FFFFFF?text=Bem-estar+2"><source src="/videos/bem-estar_2.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Bem-estar 2</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/E8A0BF/FFFFFF?text=Bem-estar+3"><source src="/videos/bem-estar_3.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Bem-estar 3</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conteúdo Aba Lifestyle -->
+                    <div class="tab-pane hidden" id="lifestyle">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 justify-items-center">
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="/images/Imagem do WhatsApp de 2025-07-03 à(s) 18.52.28_53afdc14.jpg"><source src="/videos/lifestyle_1.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Lifestyle 1</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/9F86C0/FFFFFF?text=Lifestyle+2"><source src="/videos/lifestyle_2.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Lifestyle 2</a>
+                            </div>
+                            <div class="flex flex-col items-center group">
+                                <div class="relative mx-auto border-gray-800 bg-gray-800 border-[10px] rounded-[2.5rem] h-[450px] sm:h-[500px] w-[225px] sm:w-[250px] shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                                    <video class="w-full h-full object-cover rounded-[2rem] themed-image" controls poster="https://placehold.co/300x533/BA95C3/FFFFFF?text=Lifestyle+3"><source src="/videos/lifestyle_3.mp4" type="video/mp4"></video>
+                                </div>
+                                <a href="#" target="_blank" class="block mt-4 font-semibold" style="color: var(--text-main);">Exemplo Lifestyle 3</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção: Nichos de Atuação -->
+            <section id="nichos" class="reveal py-20 px-6 rounded-3xl" style="background-image: linear-gradient(to bottom right, var(--secondary), var(--primary));">
+                <div class="text-center text-white">
+                    <h2 class="text-4xl md:text-5xl font-bold">Nichos de Atuação</h2>
+                    <p class="mt-3 opacity-90 max-w-2xl mx-auto">Conteúdo autêntico para conectar com a sua audiência.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 text-center">
+                    <div class="p-6 rounded-2xl backdrop-blur-sm border transform hover:-translate-y-2" style="background-color: var(--card-bg-transparent); border-color: rgba(255,255,255,0.1); transition-property: transform, background-color; transition-duration: 300ms;">
+                        <i class="fas fa-tshirt text-4xl mb-3" style="color: var(--text-dark);"></i>
+                        <h3 class="text-xl font-bold" style="color: var(--text-dark);">Moda e Provador</h3>
+                        <p class="mt-2 text-sm opacity-90" style="color: var(--card-text);">Looks reais, acessíveis e inspiradores.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl backdrop-blur-sm border transform hover:-translate-y-2" style="background-color: var(--card-bg-transparent); border-color: rgba(255,255,255,0.1); transition-property: transform, background-color; transition-duration: 300ms;">
+                        <i class="fas fa-baby text-4xl mb-3" style="color: var(--text-dark);"></i>
+                        <h3 class="text-xl font-bold" style="color: var(--text-dark);">Maternidade</h3>
+                        <p class="mt-2 text-sm opacity-90" style="color: var(--card-text);">Rotina real, cuidados e experiências.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl backdrop-blur-sm border transform hover:-translate-y-2" style="background-color: var(--card-bg-transparent); border-color: rgba(255,255,255,0.1); transition-property: transform, background-color; transition-duration: 300ms;">
+                        <i class="fas fa-spa text-4xl mb-3" style="color: var(--text-dark);"></i>
+                        <h3 class="text-xl font-bold" style="color: var(--text-dark);">Beleza e Cuidados</h3>
+                        <p class="mt-2 text-sm opacity-90" style="color: var(--card-text);">Produtos acessíveis e funcionais.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl backdrop-blur-sm border transform hover:-translate-y-2" style="background-color: var(--card-bg-transparent); border-color: rgba(255,255,255,0.1); transition-property: transform, background-color; transition-duration: 300ms;">
+                        <i class="fas fa-heartbeat text-4xl mb-3" style="color: var(--text-dark);"></i>
+                        <h3 class="text-xl font-bold" style="color: var(--text-dark);">Saúde e Bem-estar</h3>
+                        <p class="mt-2 text-sm opacity-90" style="color: var(--card-text);">Autocuidado e suplementos.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl backdrop-blur-sm border transform hover:-translate-y-2" style="background-color: var(--card-bg-transparent); border-color: rgba(255,255,255,0.1); transition-property: transform, background-color; transition-duration: 300ms;">
+                        <i class="fas fa-female text-4xl mb-3" style="color: var(--text-dark);"></i>
+                        <h3 class="text-xl font-bold" style="color: var(--text-dark);">Lifestyle Feminino</h3>
+                        <p class="mt-2 text-sm opacity-90" style="color: var(--card-text);">Organização, dicas e cotidiano.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NOVA SEÇÃO: Avaliações -->
+            <section id="avaliacoes" class="reveal py-20 text-center">
+                <h2 class="text-5xl font-bold" style="color: var(--text-dark);">O que dizem sobre meu trabalho</h2>
+                <p class="text-lg mt-2" style="color: var(--text-accent);">A confiança de quem já trabalhou comigo.</p>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Avaliação 1 -->
+                    <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/400x600/E8A0BF/ffffff?text=Avaliação+1" alt="Avaliação de cliente 1" class="w-full h-auto object-cover themed-image" onerror="this.onerror=null;this.src='https://placehold.co/400x600';">
+                    </div>
+                    <!-- Avaliação 2 -->
+                    <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/400x600/BA95C3/ffffff?text=Avaliação+2" alt="Avaliação de cliente 2" class="w-full h-auto object-cover themed-image" onerror="this.onerror=null;this.src='https://placehold.co/400x600';">
+                    </div>
+                    <!-- Avaliação 3 -->
+                    <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/400x600/9F86C0/ffffff?text=Avaliação+3" alt="Avaliação de cliente 3" class="w-full h-auto object-cover themed-image" onerror="this.onerror=null;this.src='https://placehold.co/400x600';">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção: Contato -->
+            <section id="contato" class="reveal py-20 text-center">
+                 <h2 class="text-5xl font-bold" style="color: var(--text-dark);">Vamos criar juntos?</h2>
+                 <p class="text-lg mt-3 max-w-xl mx-auto" style="color: var(--text-accent);">Estou animada para ajudar sua marca a brilhar! Entre em contato.</p>
+                 <div class="mt-10">
+                    <a href="mailto:email@graziellybatista.com" class="gradient-btn inline-block text-white font-bold py-4 px-12 rounded-full text-lg shadow-lg">
+                        <i class="fas fa-envelope mr-3"></i> Enviar um e-mail
+                    </a>
+                 </div>
+                 <div class="mt-10 flex justify-center gap-8 text-3xl" style="color: var(--text-dark);">
+                    <a href="#" target="_blank" style="color: var(--text-main);"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" style="color: var(--text-main);"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" target="_blank" style="color: var(--text-main);"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://wa.me/5511999999999" target="_blank" style="color: var(--text-main);"><i class="fab fa-whatsapp"></i></a>
+                 </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 mt-10 border-t" style="border-color: var(--border-color);">
+            <p style="color: var(--text-accent);">&copy; <span id="year-footer"></span> Grazy Batista. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Seta o ano atual nos rodapés
+        const currentYear = new Date().getFullYear();
+        document.getElementById('year-menu').textContent = currentYear;
+        document.getElementById('year-footer').textContent = currentYear;
+
+        // LÓGICA PARA ANIMAÇÃO AO ROLAR
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const elementsToReveal = document.querySelectorAll('.reveal');
+        elementsToReveal.forEach(el => observer.observe(el));
+
+        // LÓGICA PARA O MENU LATERAL
+        const menuBtn = document.getElementById('menu-btn');
+        const menuIcon = document.getElementById('menu-icon');
+        const sideMenu = document.getElementById('side-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        const toggleMenu = () => {
+            const isOpen = sideMenu.classList.contains('open');
+            sideMenu.classList.toggle('open');
+            menuOverlay.classList.toggle('open');
+            menuBtn.classList.toggle('open');
+            menuIcon.classList.toggle('fa-bars', isOpen);
+            menuIcon.classList.toggle('fa-times', !isOpen);
+        };
+
+        menuBtn.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        menuLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // LÓGICA PARA O SELETOR DE TEMA
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        const applyTheme = (theme) => {
+            body.dataset.theme = theme;
+            themeIcon.classList.toggle('fa-sun', theme === 'dark');
+            themeIcon.classList.toggle('fa-moon', theme === 'light');
+            localStorage.setItem('theme', theme);
+        };
+
+        themeToggleBtn.addEventListener('click', () => {
+            const newTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Aplica o tema salvo ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light'; // Padrão para 'light'
+            applyTheme(savedTheme);
+        });
+
+        // LÓGICA PARA AS ABAS DO PORTFÓLIO
+        const tabs = document.querySelectorAll('.portfolio-tab');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desativa todas as abas e painéis
+                tabs.forEach(t => t.classList.remove('active'));
+                panes.forEach(p => p.classList.add('hidden'));
+
+                // Ativa a aba e o painel clicado
+                tab.classList.add('active');
+                const targetPane = document.getElementById(tab.dataset.tab);
+                targetPane.classList.remove('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>

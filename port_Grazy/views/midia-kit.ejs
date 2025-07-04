@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mídia Kit - Grazielly Batista</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- DEFINIÇÃO DAS VARIÁVEIS DE COR PARA OS TEMAS --- */
+        :root, body[data-theme='light'] {
+            --bg-color-1: #fde2e4;
+            --bg-color-2: #e2d6e9;
+            --bg-color-3: #d1c1d8;
+            --text-main: #4A4A4A;
+            --text-dark: #5E548E;
+            --text-accent: #9F86C0;
+            --primary: #E8A0BF;
+            --secondary: #BA95C3;
+            --card-bg: #FFFFFF;
+            --card-bg-transparent: rgb(255 255 255 / 0.7);
+            --card-text: #4A4A4A;
+            --menu-bg: rgb(255 255 255 / 0.8);
+            --border-color: #E5E7EB;
+            --image-brightness: 100%;
+            --chart-grid-color: rgba(0, 0, 0, 0.1);
+            --chart-text-color: #666;
+        }
+
+        body[data-theme='dark'] {
+            --bg-color-1: #4a423b;
+            --bg-color-2: #3b3734;
+            --bg-color-3: #2a2725;
+            --text-main: #E0D8D3;
+            --text-dark: #FFFFFF;
+            --text-accent: #BFA89E;
+            --primary: #8C6D5D;
+            --secondary: #6B5B4D;
+            --card-bg: #3A322F;
+            --card-bg-transparent: rgb(58 50 47 / 0.7);
+            --card-text: #E0D8D3;
+            --menu-bg: rgb(42 39 37 / 0.8);
+            --border-color: #4A4A4A;
+            --image-brightness: 85%;
+            --chart-grid-color: rgba(255, 255, 255, 0.1);
+            --chart-text-color: #ccc;
+        }
+        /* --- FIM DAS VARIÁVEIS DE COR --- */
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        body, h1, h2, h3, p, a, i, footer, section, button, div, img {
+            transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, filter 0.5s ease;
+        }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
+            background-size: 400% 400%;
+            animation: animated-gradient 20s ease infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+        .themed-image {
+            filter: brightness(var(--image-brightness));
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+    
+    <!-- Controles do Topo -->
+    <div class="fixed top-6 left-6 z-50 flex items-center gap-3">
+        <a href="/" class="h-12 w-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background-color: var(--menu-bg); backdrop-filter: blur(4px); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i class="fas fa-arrow-left text-xl" style="color: var(--text-dark);"></i>
+        </a>
+        <button id="theme-toggle-btn" class="h-12 w-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background-color: var(--menu-bg); backdrop-filter: blur(4px); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i id="theme-icon" class="fas fa-moon text-xl" style="color: var(--text-dark);"></i>
+        </button>
+    </div>
+
+
+    <div class="max-w-5xl mx-auto p-4 sm:p-8">
+        <header class="text-center py-16">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold" style="color: var(--text-dark);">Mídia Kit</h1>
+            <p class="text-xl md:text-2xl font-sans mt-2" style="color: var(--text-accent);">Grazielly Batista</p>
+        </header>
+
+        <main>
+            <!-- Seção Sobre Mim -->
+            <section class="grid md:grid-cols-2 gap-12 items-center my-16">
+                <div>
+                    <img src="/images/capa2.jpg" alt="Foto de Grazielly Batista" class="rounded-3xl shadow-2xl w-full h-auto object-cover themed-image">
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-serif font-bold" style="color: var(--text-dark);">Olá, eu sou a Grazy!</h2>
+                    <p class="mt-4 text-lg leading-relaxed" style="color: var(--text-main);">Sou estudante de Enfermagem, apaixonada por saúde preventiva, estética, autocuidado e bem-estar. Produzo conteúdo autêntico e informativo, sempre com uma linguagem acessível e humanizada, conectando marcas com seu público de forma real e estratégica.</p>
+                </div>
+            </section>
+
+            <!-- Seção de Métricas -->
+            <section class="my-20 py-12 rounded-3xl" style="background-image: linear-gradient(to right, var(--primary), var(--secondary));">
+                <div class="text-center mb-12 text-white">
+                    <h2 class="text-4xl font-serif font-bold">Minhas Métricas</h2>
+                    <p class="opacity-80">Resultados de 3 de Junho a 2 de Julho</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center text-white px-6">
+                    <div>
+                        <p class="text-4xl font-bold">2.041</p>
+                        <p class="opacity-80">Seguidores</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold">20mil</p>
+                        <p class="opacity-80">Alcance</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold">135mil</p>
+                        <p class="opacity-80">Impressões</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold">1.600</p>
+                        <p class="opacity-80">Views/Stories</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold">800</p>
+                        <p class="opacity-80">Curtidas</p>
+                    </div>
+                </div>
+                <hr class="border-white/20 my-10 mx-auto w-11/12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white px-6">
+                     <div>
+                        <h3 class="text-2xl font-semibold opacity-90 mb-2">Posts</h3>
+                        <p class="text-3xl font-bold">2,84%</p>
+                        <p class="opacity-80">Taxa de Engajamento</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold opacity-90 mb-2">Reels</h3>
+                        <p class="text-3xl font-bold">4,48%</p>
+                        <p class="opacity-80">Taxa de Engajamento</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold opacity-90 mb-2">Stories</h3>
+                        <p class="text-3xl font-bold">0,69%</p>
+                        <p class="opacity-80">Taxa de Engajamento</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Público -->
+            <section class="my-20 p-8 rounded-3xl" style="background-color: var(--card-bg);">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-serif font-bold" style="color: var(--text-dark);">Quem me acompanha</h2>
+                </div>
+                <div class="grid grid-cols-1 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-center mb-4" style="color: var(--text-dark);">Localização (Estado)</h3>
+                        <canvas id="localizacaoChart"></canvas>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12 items-center mt-12">
+                        <div>
+                            <h3 class="text-2xl font-serif font-bold text-center mb-4" style="color: var(--text-dark);">Gênero</h3>
+                            <canvas id="generoChart"></canvas>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-serif font-bold text-center mb-4" style="color: var(--text-dark);">Faixa Etária</h3>
+                            <canvas id="faixaEtariaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Seção: Contato -->
+            <section id="contato" class="py-20 text-center">
+                 <h2 class="text-5xl font-bold" style="color: var(--text-dark);">Deu Match?</h2>
+                 <p class="text-lg mt-3 max-w-xl mx-auto" style="color: var(--text-accent);">Vamos juntos promover a sua marca!</p>
+                 <div class="mt-10">
+                    <a href="https://wa.me/5599984491302" target="_blank" class="gradient-btn inline-block text-white font-bold py-4 px-12 rounded-full text-lg shadow-lg transition-transform hover:scale-105">
+                        <i class="fab fa-whatsapp mr-3"></i> (99) 98449-1302
+                    </a>
+                 </div>
+                 <p class="mt-6 text-lg" style="color: var(--text-accent);">ou</p>
+                 <a href="mailto:email@graziellybatista.com" class="mt-2 text-lg font-semibold hover:underline" style="color: var(--text-dark);">@grazybatistta_</a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let localizacaoChartInstance = null;
+        let faixaEtariaChartInstance = null;
+        let generoChartInstance = null;
+
+        function getThemeColors() {
+            const style = getComputedStyle(document.body);
+            return {
+                gridColor: style.getPropertyValue('--chart-grid-color') || 'rgba(0,0,0,0.1)',
+                chartTextColor: style.getPropertyValue('--chart-text-color') || '#666',
+                pieColors: [
+                    style.getPropertyValue('--primary'),
+                    style.getPropertyValue('--secondary'),
+                    style.getPropertyValue('--text-accent'),
+                    '#6B5B4D',
+                ],
+                barColor: style.getPropertyValue('--primary')
+            };
+        }
+
+        function initCharts() {
+            if (localizacaoChartInstance) localizacaoChartInstance.destroy();
+            if (faixaEtariaChartInstance) faixaEtariaChartInstance.destroy();
+            if (generoChartInstance) generoChartInstance.destroy();
+            
+            const colors = getThemeColors();
+            Chart.defaults.color = colors.chartTextColor;
+
+            // Gráfico de Localização
+            localizacaoChartInstance = new Chart(document.getElementById('localizacaoChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Ceará', 'Maranhão', 'São Paulo', 'Goiás', 'Piauí'],
+                    datasets: [{
+                        label: 'Público por Estado',
+                        data: [70.63, 15.29, 4.54, 2.04, 1.21],
+                        backgroundColor: colors.barColor,
+                        borderRadius: 5,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: { beginAtZero: true, grid: { color: colors.gridColor } },
+                        y: { grid: { color: colors.gridColor } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Gráfico de Gênero
+            generoChartInstance = new Chart(document.getElementById('generoChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Feminino', 'Masculino'],
+                    datasets: [{
+                        label: 'Gênero',
+                        data: [79.9, 20.1],
+                        backgroundColor: [colors.pieColors[0], colors.pieColors[1]],
+                        hoverOffset: 8,
+                        borderColor: getComputedStyle(document.body).getPropertyValue('--card-bg'),
+                        borderWidth: 2,
+                    }]
+                },
+                 options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: colors.chartTextColor
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Faixa Etária
+            faixaEtariaChartInstance = new Chart(document.getElementById('faixaEtariaChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['18-24 anos', '25-34 anos', '35-44 anos', '45-54 anos'],
+                    datasets: [{
+                        label: 'Faixa Etária',
+                        data: [11.6, 52.6, 27.4, 8.4],
+                        backgroundColor: colors.pieColors,
+                        hoverOffset: 8,
+                        borderColor: getComputedStyle(document.body).getPropertyValue('--card-bg'),
+                        borderWidth: 2,
+                    }]
+                },
+                 options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: colors.chartTextColor
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // LÓGICA PARA O SELETOR DE TEMA
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        const applyTheme = (theme) => {
+            body.dataset.theme = theme;
+            themeIcon.classList.toggle('fa-sun', theme === 'dark');
+            themeIcon.classList.toggle('fa-moon', theme === 'light');
+            localStorage.setItem('theme', theme);
+            // Re-renderiza os gráficos com as novas cores
+            initCharts();
+        };
+
+        themeToggleBtn.addEventListener('click', () => {
+            const newTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Aplica o tema salvo e inicializa os gráficos
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+        });
+    </script>
+
+</body>
+</html>

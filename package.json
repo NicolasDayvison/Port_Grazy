@@ -1,0 +1,10 @@
+{
+  "name": "grazy-portfolio-root",
+  "version": "1.0.0",
+  "description": "Root package para rodar o portfólio UGC Grazielly Batista",
+  "main": "port_Grazy/server.js",
+  "scripts": {
+    "start": "node port_Grazy/server.js"
+  },
+  "dependencies": {}
+} 
