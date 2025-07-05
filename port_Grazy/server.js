@@ -32,6 +32,11 @@ app.get('/midia-kit.ejs', (req, res) => {
     res.render('midia-kit');
 });
 
+// Rota para redirecionar email
+app.get('/email', (req, res) => {
+    res.redirect('mailto:graziellybatistta17@gmail.com');
+});
+
 // 8. Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor a correr com sucesso na porta ${PORT}`);
